@@ -11,9 +11,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+header{
+  padding: .5em;
+  box-shadow: 0 .5em .4em grey;
+}
+
+header img {
+  max-height: 15vmin;
+  border-radius: .5em;
 }
