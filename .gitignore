@@ -21,3 +21,41 @@
 *npm-debug.log*
 *yarn-debug.log*
 *yarn-error.log*
+
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Visual Studio Code
+*.vscode
+
+# Rider
+.idea
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+api/*[Dd]ebug/
+api/*[Dd]ebugPublic/
+api/*[Rr]elease/
+api/*[Rr]eleases/
+api/*x64/
+api/*x86/
+api/*build/
+api/*bld/
+api/*[Bb]in/
+api/*[Oo]bj/
+api/*[Oo]ut/
+api/*msbuild.log
+api/*msbuild.err
+api/*msbuild.wrn
+
+# Visual Studio 2015
+.vs/
