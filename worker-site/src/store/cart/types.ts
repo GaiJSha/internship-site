@@ -3,7 +3,7 @@ export interface CartState {
   items: Product[];
 }
 
-export interface Product{
+export interface Product {
   id: string;
   name: string;
   amount: number;

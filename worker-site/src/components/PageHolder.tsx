@@ -1,13 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
-export interface PageHolderProps {
-    
-}
- 
+export interface PageHolderProps {}
+
 const PageHolder: React.FC<PageHolderProps> = () => {
-    return <div>
-        
-    </div>;
-}
- 
+  return <div></div>;
+};
+
 export default PageHolder;

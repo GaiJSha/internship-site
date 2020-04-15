@@ -1,8 +1,8 @@
-import { ADD_PRODUCT, Product} from "./types";
+import { ADD_PRODUCT, Product } from "./types";
 
-export function addProduct(addedProduct : Product) {
+export function addProduct(addedProduct: Product) {
   return {
     type: ADD_PRODUCT,
-    payload: addedProduct
+    payload: addedProduct,
   };
 }
