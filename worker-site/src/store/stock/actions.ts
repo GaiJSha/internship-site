@@ -6,9 +6,10 @@ import {
   ADD_ITEM,
   EDIT_ITEM,
   REMOVE_ITEM,
+  NewItem,
 } from "./types";
 
-export function addItem(newItem: StockItem): StockActionTypes {
+export function addItem(newItem: NewItem): StockActionTypes {
   return {
     type: ADD_ITEM,
     newItem,

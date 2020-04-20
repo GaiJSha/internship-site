@@ -5,10 +5,13 @@ import {
   GET_STOCK,
   REMOVE_ITEM,
   EDIT_ITEM,
+  StockItem,
 } from "./types";
+import { v4 } from "uuid";
 
 const initialState: StockState = {
   stock: [],
+  types: ["כוסית", "פלאג", "זריעות", "כללי"],
 };
 
 export function stockReducer(
@@ -18,10 +21,17 @@ export function stockReducer(
   switch (action.type) {
     case ADD_ITEM: {
       const newStock = state.stock;
-      newStock.push(action.newItem);
+      const newItem: StockItem = { id: v4(), ...action.newItem };
+      newStock.push(newItem);
+      let newTypes = state.types;
+      action.newItem.types.forEach((type) => {
+        if (!newTypes.includes(type.name)) {
+          newTypes.push(type.name);
+        }
+      });
       return {
         ...state,
-        ...{ stock: newStock },
+        ...{ stock: newStock, types: newTypes },
       };
     }
     case EDIT_ITEM: {
@@ -29,9 +39,15 @@ export function stockReducer(
       newStock = newStock.map((item) =>
         item.id === action.editedItem.id ? action.editedItem : item
       );
+      let newTypes = state.types;
+      action.editedItem.types.forEach((type) => {
+        if (!newTypes.includes(type.name)) {
+          newTypes.push(type.name);
+        }
+      });
       return {
         ...state,
-        ...{ stock: newStock },
+        ...{ stock: newStock, types: newTypes },
       };
     }
     case REMOVE_ITEM: {

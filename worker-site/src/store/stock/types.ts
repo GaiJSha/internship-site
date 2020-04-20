@@ -4,6 +4,11 @@ interface ItemType {
   price: number;
 }
 
+export interface NewItem {
+  name: string;
+  types: ItemType[];
+}
+
 export interface StockItem {
   name: string;
   id: string;
@@ -12,6 +17,7 @@ export interface StockItem {
 
 export interface StockState {
   stock: StockItem[];
+  types: string[];
 }
 
 export const GET_STOCK = "GET_STOCK";
@@ -26,7 +32,7 @@ interface GetStockAction {
 
 interface AddItemAction {
   type: typeof ADD_ITEM;
-  newItem: StockItem;
+  newItem: NewItem;
 }
 
 interface EditItemAction {
