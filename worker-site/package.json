@@ -11,6 +11,7 @@
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
     "@types/react-router": "^5.1.5",
+    "@types/uuid": "^7.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -20,7 +21,8 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "uuid": "^7.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
