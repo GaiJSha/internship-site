@@ -55,5 +55,17 @@ nav .menu-button {
 }
 
 nav .menu-button:hover {
-  font-size: 1.2em;
+  font-size: 1.3em;
+}
+
+nav .clicked {
+  font-size: 1.3em;
+}
+
+nav .clicked::before {
+  color: #555;
+}
+
+nav .clicked::after {
+  color: #555;
 }

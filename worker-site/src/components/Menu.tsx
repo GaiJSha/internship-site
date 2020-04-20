@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export interface menuOption {
   name: string;
@@ -11,11 +11,20 @@ export interface MenuProps {
 }
 
 const Menu: React.FC<MenuProps> = ({ options }) => {
+  let location = useLocation();
+
   return (
     <nav>
-      {options.map((optoin) => (
-        <Link className="menu-button" to={optoin.route}>
-          {optoin.name}
+      {options.map((option) => (
+        <Link
+          className={
+            location.pathname !== option.route
+              ? "menu-button"
+              : "menu-button clicked"
+          }
+          to={option.route}
+        >
+          {option.name}
         </Link>
       ))}
     </nav>
