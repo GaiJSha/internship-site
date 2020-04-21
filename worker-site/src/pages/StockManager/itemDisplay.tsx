@@ -34,11 +34,10 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, editItem, types }) => {
   };
 
   return (
-    <div>
+    <div className="stock-row">
       <h5>{item.name}</h5>
       {item.types.map((type, index) => (
-        <td>
-          {type.name + " "}
+        <span style={{ gridColumn: types.indexOf(type.name) + 2 }}>
           <input
             name={`${item.id}:${type.name}`}
             value={type.quantity}
@@ -49,24 +48,29 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, editItem, types }) => {
               editItem(changedItem);
             }}
           />
-        </td>
+        </span>
       ))}
-      <button onClick={() => setOpen(!isOpen)}> {isOpen ? "X" : "+"} </button>
-      {isOpen && (
-        <form onSubmit={handleAddClick}>
-          <select name="type" onChange={(e) => setType(e.currentTarget.value)}>
-            {availableTypes.map((type) => (
-              <option>{type}</option>
-            ))}
-          </select>
-          <input
-            type="number"
-            value={newPrice}
-            onChange={(e) => setPrice(+e.target.value)}
-          />
-          <input type="submit" value="הוסף" />
-        </form>
-      )}
+      <span className="add-type">
+        <button onClick={() => setOpen(!isOpen)}> {isOpen ? "X" : "+"} </button>
+        {isOpen && (
+          <form onSubmit={handleAddClick}>
+            <select
+              name="type"
+              onChange={(e) => setType(e.currentTarget.value)}
+            >
+              {availableTypes.map((type) => (
+                <option>{type}</option>
+              ))}
+            </select>
+            <input
+              type="number"
+              value={newPrice}
+              onChange={(e) => setPrice(+e.target.value)}
+            />
+            <input type="submit" value="הוסף" />
+          </form>
+        )}
+      </span>
     </div>
   );
 };

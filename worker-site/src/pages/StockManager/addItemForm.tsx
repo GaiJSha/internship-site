@@ -13,15 +13,18 @@ const AddItemForm: React.FC<addItemProps> = ({ addItem }) => {
   const handleAddClick = () => {
     if (!isOpen) setOpen(true);
     else {
-      setOpen(false);
-      addItem({ name, types: [] });
+      if (name != "") {
+        setOpen(false);
+        addItem({ name, types: [] });
+      }
     }
   };
   return (
     <div>
-      <button onClick={handleAddClick}>הוסף</button>
+      <button onClick={() => setOpen(!isOpen)}>{isOpen ? "X" : "+"}</button>
       {isOpen && (
         <span>
+          <button onClick={handleAddClick}>הוסף</button>
           שם :
           <input
             type="text"

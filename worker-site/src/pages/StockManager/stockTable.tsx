@@ -16,12 +16,17 @@ export interface StockTableProps {
 
 const StockTable: React.SFC<StockTableProps> = ({ stock, actions }) => {
   return (
-    <div>
-      <table>
-        {stock.stock.map((item) => (
-          <ItemDisplay editItem={actions.editItem} item={item} />
+    <div className="stock-table">
+      <div className="table-header">
+        <h5>מוצרים</h5>
+        {stock.types.map((type) => (
+          <h5>{type}</h5>
         ))}
-      </table>
+        <h5 className="add-type">הוסף סוג</h5>
+      </div>
+      {stock.stock.map((item) => (
+        <ItemDisplay editItem={actions.editItem} item={item} key={item.id} />
+      ))}
     </div>
   );
 };

@@ -20,18 +20,11 @@ const StockManagerPage: React.SFC<StockManagerPageProps> = ({
   stock,
 }) => {
   const actions = { addItem, removeItem, editItem };
-  const handleAddClick = () => {
-    addItem({
-      name: "עגבניה",
-      types: [{ name: "כוסית", quantity: 50, price: 3.5 }],
-    });
-  };
 
   return (
-    <div>
-      <AddItemForm addItem={addItem}></AddItemForm>
-      <button onClick={handleAddClick}>הוסף</button>
+    <div className="stock-page">
       <StockTable stock={stock} actions={actions} />
+      <AddItemForm addItem={addItem}></AddItemForm>
     </div>
   );
 };
