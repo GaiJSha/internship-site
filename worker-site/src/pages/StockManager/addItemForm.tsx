@@ -13,7 +13,7 @@ const AddItemForm: React.FC<addItemProps> = ({ addItem }) => {
   const handleAddClick = () => {
     if (!isOpen) setOpen(true);
     else {
-      if (name != "") {
+      if (name !== "") {
         setOpen(false);
         addItem({ name, types: [] });
       }

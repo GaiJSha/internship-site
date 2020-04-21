@@ -60,7 +60,7 @@ export function stockReducer(
     case GET_STOCK: {
       return {
         ...state,
-        ...action.newState,
+        stock: action.newStock,
       };
     }
     default:

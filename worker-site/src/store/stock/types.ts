@@ -1,6 +1,6 @@
 interface ItemType {
   name: string;
-  quantity: number;
+  amount: number;
   price: number;
 }
 
@@ -27,7 +27,7 @@ export const REMOVE_ITEM = "REMOVE_ITEM";
 
 interface GetStockAction {
   type: typeof GET_STOCK;
-  newState: StockState;
+  newStock: StockItem[];
 }
 
 interface AddItemAction {

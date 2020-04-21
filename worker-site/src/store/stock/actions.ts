@@ -1,5 +1,4 @@
 import {
-  StockState,
   StockActionTypes,
   StockItem,
   GET_STOCK,
@@ -8,6 +7,9 @@ import {
   REMOVE_ITEM,
   NewItem,
 } from "./types";
+import { ThunkAction } from "redux-thunk";
+import { AnyAction } from "redux";
+import * as axios from "axios";
 
 export function addItem(newItem: NewItem): StockActionTypes {
   return {
@@ -16,10 +18,10 @@ export function addItem(newItem: NewItem): StockActionTypes {
   };
 }
 
-export function getStock(newState: StockState): StockActionTypes {
+export function setStock(newStock: StockItem[]): StockActionTypes {
   return {
     type: GET_STOCK,
-    newState,
+    newStock,
   };
 }
 
@@ -34,4 +36,20 @@ export function removeItem(id: string): StockActionTypes {
     type: REMOVE_ITEM,
     id,
   };
+}
+
+export function fetchStock(): ThunkAction<Promise<void>, {}, {}, AnyAction> {
+  return async (dispatch): Promise<void> =>
+    fetch("https://localhost:5001/api/stock/", {
+      method: "get",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((content) => {
+        console.log("arrived");
+        console.log(content);
+        dispatch(setStock(content));
+      });
 }

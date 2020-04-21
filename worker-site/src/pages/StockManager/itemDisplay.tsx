@@ -25,7 +25,7 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, editItem, types }) => {
       if (newType !== "") {
         setOpen(false);
         const alteredItem = item;
-        alteredItem.types.push({ name: newType, price: newPrice, quantity: 0 });
+        alteredItem.types.push({ name: newType, price: newPrice, amount: 0 });
         editItem(alteredItem);
         setType("");
         setPrice(0);
@@ -40,11 +40,11 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, editItem, types }) => {
         <span style={{ gridColumn: types.indexOf(type.name) + 2 }}>
           <input
             name={`${item.id}:${type.name}`}
-            value={type.quantity}
+            value={type.amount}
             type="number"
             onChange={(e) => {
               let changedItem = Object.assign({}, item);
-              changedItem.types[index].quantity = +e.target.value;
+              changedItem.types[index].amount = +e.target.value;
               editItem(changedItem);
             }}
           />

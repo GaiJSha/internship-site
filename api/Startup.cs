@@ -19,6 +19,7 @@ namespace Api
 {
     public class Startup
     {
+        private string _cors = "c12ors";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +33,15 @@ namespace Api
 
             services.Configure<MashtelaDatabaseSettings>(
                 Configuration.GetSection(nameof(MashtelaDatabaseSettings)));
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: _cors, builder =>
+                 {
+                     builder.WithOrigins("http://localhost:3000")
+                     .AllowAnyHeader()
+                     .SetIsOriginAllowedToAllowWildcardSubdomains();
+                 });
+            });
 
             services.AddSingleton<IMashtelaDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<MashtelaDatabaseSettings>>().Value);
@@ -51,10 +61,11 @@ namespace Api
 
             //app.Use(middleware);
 
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(_cors);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -65,9 +76,10 @@ namespace Api
 
         private RequestDelegate middleware(RequestDelegate next)
         {
-            return async (ctx) => {
-                string a = Configuration.GetValue<string>("MongoConnectionString"); 
-                
+            return async (ctx) =>
+            {
+                string a = Configuration.GetValue<string>("MongoConnectionString");
+
                 await ctx.Response.WriteAsync(a);
             };
         }
