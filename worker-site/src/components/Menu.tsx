@@ -17,6 +17,7 @@ const Menu: React.FC<MenuProps> = ({ options }) => {
     <nav>
       {options.map((option) => (
         <Link
+          key={option.name}
           className={
             location.pathname !== option.route
               ? "menu-button"
