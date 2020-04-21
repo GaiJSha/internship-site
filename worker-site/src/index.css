@@ -1,5 +1,6 @@
 :root {
   --bg-color: #f0f0f0;
+  --page-color: #ccc5;
 }
 
 body {
@@ -19,9 +20,12 @@ header {
   grid-template-columns: 1fr 6fr 1fr;
   padding: 0.5em;
   box-shadow: 0 0.5em 0.4em grey;
+  height: 20vmin;
+  box-sizing: border-box;
 }
 
 header img {
+  align-self: center;
   max-height: 15vmin;
   border-radius: 0.5em;
 }
@@ -68,4 +72,43 @@ nav .clicked::before {
 
 nav .clicked::after {
   color: #555;
+}
+
+.stock-page {
+  margin: 0 9vw;
+  padding: 2vh 1vw;
+  min-height: 80vmin;
+  box-sizing: border-box;
+  background-color: var(--page-color);
+}
+
+.stock-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr) 2fr;
+}
+
+.stock-table {
+  display: block;
+}
+
+.add-type {
+  grid-column: -2;
+  display: flex;
+}
+
+.add-type form {
+  display: flex;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr) 2fr;
+}
+
+.stock-row input {
+  border: none;
+  background-color: #0000;
+  border-bottom: #0005 solid thin;
+  width: 8.5vw;
+  min-height: 4.5vh;
 }
