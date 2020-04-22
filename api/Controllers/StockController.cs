@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Api.Models;
 using Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -37,26 +38,37 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        
-        public ActionResult<ItemDto> CreateItem([FromBody] NewItem item){
-            Item ret = _stock.Create(new Item(){Name = item.Name, Types = item.Types});
+
+        public ActionResult<ItemDto> CreateItem([FromBody] NewItem item)
+        {
+            Item ret = _stock.Create(new Item() { Name = item.Name, Types = item.Types });
             return Ok(ret);
         }
 
         [HttpPost("plant")]
-        
-        public ActionResult<ItemDto> CreatePlant([FromBody] string name){
+
+        public ActionResult<ItemDto> CreatePlant([FromBody] string name)
+        {
 
 
-            Item ret = _stock.Create(new Item(){Name = name, Types = TypeProvider.SummerPlantType});
+            Item ret = _stock.Create(new Item() { Name = name, Types = TypeProvider.SummerPlantType });
             return Ok(ret);
         }
 
         [HttpPost("utility")]
-        
-        public ActionResult<ItemDto> CreateUtility([FromBody] NewUtility utility){
-            Item ret = _stock.Create(new Item(){Name = utility.Name, Types = TypeProvider.UtilityType(utility.Price) });
+
+        public ActionResult<ItemDto> CreateUtility([FromBody] NewUtility utility)
+        {
+            Item ret = _stock.Create(new Item() { Name = utility.Name, Types = TypeProvider.UtilityType(utility.Price) });
             return Ok(ret);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateStock([FromBody] List<ItemDto> updatedItems)
+        {
+            var formattedItems = updatedItems.Select(itemDto => new Item() { Id = itemDto.Id, Name = itemDto.Name, Types = itemDto.Types }).ToList();
+            await _stock.UpdateMany(formattedItems);
+            return Ok();
         }
 
     }

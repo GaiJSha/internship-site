@@ -39,7 +39,8 @@ namespace Api
                  {
                      builder.WithOrigins("http://localhost:3000")
                      .AllowAnyHeader()
-                     .SetIsOriginAllowedToAllowWildcardSubdomains();
+                     .SetIsOriginAllowedToAllowWildcardSubdomains()
+                     .AllowAnyMethod();
                  });
             });
 

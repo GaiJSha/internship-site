@@ -3,13 +3,14 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Api.Services
 {
     public class StockService
     {
         private readonly IMongoCollection<Item> _stock;
-        
+
         public StockService(IMashtelaDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
@@ -36,7 +37,14 @@ namespace Api.Services
         public void Remove(Item itemInput) =>
             _stock.DeleteOne(item => item.Id == itemInput.Id);
 
-        public void Remove(string id) => 
+        public void Remove(string id) =>
             _stock.DeleteOne(item => item.Id == id);
+
+        public Task UpdateMany(List<Item> itemsInput) =>
+            Task.WhenAll(itemsInput.Select(itemInput =>
+                _stock.ReplaceOneAsync(item => item.Id == itemInput.Id, itemInput)
+            ));
+
+
     }
 }
