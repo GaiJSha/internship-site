@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header";
 import PageHolder from "./components/PageHolder";
 import { connect } from "react-redux";
-import { AppState } from "./store";
-import { updateSession } from "./store/system/actions";
-import { SystemState } from "./store/system/types";
 import { BrowserRouter } from "react-router-dom";
+import { fetchStock } from "./store/stock/actions";
+import { ThunkDispatch, ThunkAction } from "redux-thunk";
+import { AnyAction } from "redux";
 
 interface AppProps {
-  updateSession: typeof updateSession;
-  system: SystemState;
+  fetchStock: () => Promise<ThunkAction<Promise<void>, {}, {}, AnyAction>>;
 }
 
-function App(props: AppProps) {
+const App: React.FC<AppProps> = ({ fetchStock }) => {
+  useEffect(() => {
+    fetchStock();
+    return;
+  });
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -21,10 +25,10 @@ function App(props: AppProps) {
       </BrowserRouter>
     </div>
   );
-}
+};
 
-const bindStateToProps = (reduxState: AppState) => ({
-  system: reduxState.system,
+const bindDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
+  fetchStock: async () => await dispatch(fetchStock()),
 });
 
-export default connect(bindStateToProps, { updateSession })(App);
+export default connect(() => {}, bindDispatchToProps)(App);

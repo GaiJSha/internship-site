@@ -112,3 +112,7 @@ nav .clicked::after {
   width: 8.5vw;
   min-height: 4.5vh;
 }
+
+.stock-row span {
+  grid-row: 1;
+}

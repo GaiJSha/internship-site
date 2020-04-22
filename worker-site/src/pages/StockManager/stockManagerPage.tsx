@@ -37,7 +37,6 @@ const StockManagerPage: React.FC<StockManagerPageProps> = ({
 
   return (
     <div className="stock-page">
-      <button onClick={fetchStock}>TEST</button>
       <StockTable stock={stock} actions={actions} />
       <AddItemForm addItem={addItem}></AddItemForm>
     </div>

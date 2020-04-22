@@ -53,3 +53,5 @@ export function fetchStock(): ThunkAction<Promise<void>, {}, {}, AnyAction> {
         dispatch(setStock(content));
       });
 }
+
+//export function updateStock(): ThunkAction<Promise<void>, {}, {}, AnyAction>;
