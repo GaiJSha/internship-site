@@ -60,29 +60,18 @@ namespace Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.Use(middleware);
-
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
             app.UseCors(_cors);
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-        }
-
-        private RequestDelegate middleware(RequestDelegate next)
-        {
-            return async (ctx) =>
-            {
-                string a = Configuration.GetValue<string>("MongoConnectionString");
-
-                await ctx.Response.WriteAsync(a);
-            };
         }
     }
 }

@@ -17,6 +17,8 @@ import StockTable from "./stockTable";
 import AddItemForm from "./addItemForm";
 import { AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { useState } from "react";
+import SearchBox from "../../components/SerchBox";
 
 export interface StockManagerPageProps {
   removeItem: (id: string) => StockActionTypes;
@@ -34,9 +36,15 @@ const StockManagerPage: React.FC<StockManagerPageProps> = ({
   stock,
 }) => {
   const actions = { addItem, removeItem, editItem };
+  const [filter, setFilter] = useState("");
 
   return (
     <div className="stock-page">
+      <SearchBox
+        text={filter}
+        setText={setFilter}
+        options={stock.stock.map((item) => item.name)}
+      />
       <StockTable stock={stock} actions={actions} />
       <AddItemForm addItem={addItem}></AddItemForm>
     </div>

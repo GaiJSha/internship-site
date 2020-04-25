@@ -32,7 +32,6 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, editItem, types }) => {
       }
     }
   };
-
   return (
     <div className="stock-row">
       <h5>{item.name}</h5>
