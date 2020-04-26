@@ -7,7 +7,6 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-import { useEffect } from "react";
 
 export interface SearchBoxProps {
   options: string[];
@@ -17,7 +16,7 @@ export interface SearchBoxProps {
 
 const SearchBox: React.FC<SearchBoxProps> = ({ options, text, setText }) => {
   return (
-    <Combobox>
+    <Combobox onSelect={(e) => setText(e)}>
       <ComboboxInput onChange={(e: any) => setText(e.target.value)} />
       <ComboboxPopover className="shadow-popup">
         {options.length > 0 ? (

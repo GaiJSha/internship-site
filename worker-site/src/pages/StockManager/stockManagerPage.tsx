@@ -1,19 +1,9 @@
 import * as React from "react";
 import { AppState } from "../../store";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-  addItem,
-  removeItem,
-  editItem,
-  fetchStock,
-  setFilter,
-} from "../../store/stock/actions";
-import { NewItem, StockItem, StockActionTypes } from "../../store/stock/types";
+import { useSelector, shallowEqual } from "react-redux";
 import StockTable from "./stockTable";
 import AddItemForm from "./addItemForm";
-import { ThunkAction } from "redux-thunk";
 import SearchBox from "../../components/SerchBox";
-import { AnyAction } from "redux";
 import { createSelector } from "reselect";
 import { useStockActions } from "../../hooks/useStockActions";
 
@@ -45,7 +35,7 @@ const StockManagerPage: React.FC<StockManagerPageProps> = () => {
         options={filteredStock.map((item) => item.name)}
       />
       <StockTable types={types} stock={filteredStock} actions={actions} />
-      <AddItemForm addItem={addItem}></AddItemForm>
+      <AddItemForm addItem={add}></AddItemForm>
     </div>
   );
 };

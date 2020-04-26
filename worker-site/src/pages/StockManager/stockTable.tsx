@@ -25,7 +25,7 @@ const StockTable: React.SFC<StockTableProps> = ({ stock, actions, types }) => {
         ))}
         <h5 className="add-type">הוסף סוג</h5>
       </div>
-      {stock.map((item) => (
+      {stock.slice(0, 30).map((item) => (
         <ItemDisplay
           editItem={actions.edit}
           item={item}

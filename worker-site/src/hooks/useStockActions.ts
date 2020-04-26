@@ -22,5 +22,6 @@ export const useStockActions = () => {
   const fetch = async (): Promise<
     ThunkAction<Promise<void>, {}, {}, AnyAction>
   > => await dispatch(fetchStock());
+
   return { add, remove, edit, setfilter, fetch };
 };
