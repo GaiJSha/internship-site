@@ -16,20 +16,13 @@ export interface SearchBoxProps {
 }
 
 const SearchBox: React.FC<SearchBoxProps> = ({ options, text, setText }) => {
-  const [_, forceRender] = React.useState("");
-  let filteredStock: string[] = [];
-  React.useEffect(() => {
-    filteredStock = options.filter((item) => item.indexOf(text) > 0);
-    console.log(filteredStock);
-    forceRender("");
-  }, [text, options]);
   return (
     <Combobox>
       <ComboboxInput onChange={(e: any) => setText(e.target.value)} />
       <ComboboxPopover className="shadow-popup">
-        {filteredStock.length > 0 ? (
+        {options.length > 0 ? (
           <ComboboxList>
-            {filteredStock.slice(0, 10).map((result, index) => (
+            {options.slice(0, 10).map((result, index) => (
               <ComboboxOption key={index} value={result} />
             ))}
           </ComboboxList>

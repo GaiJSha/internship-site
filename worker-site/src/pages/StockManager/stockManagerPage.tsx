@@ -1,65 +1,61 @@
 import * as React from "react";
 import { AppState } from "../../store";
-import { connect } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   addItem,
   removeItem,
   editItem,
   fetchStock,
+  setFilter,
 } from "../../store/stock/actions";
-import {
-  StockState,
-  NewItem,
-  StockItem,
-  StockActionTypes,
-} from "../../store/stock/types";
+import { NewItem, StockItem, StockActionTypes } from "../../store/stock/types";
 import StockTable from "./stockTable";
 import AddItemForm from "./addItemForm";
-import { AnyAction } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { useState } from "react";
+import { ThunkAction } from "redux-thunk";
 import SearchBox from "../../components/SerchBox";
+import { AnyAction } from "redux";
+import { createSelector } from "reselect";
 
-export interface StockManagerPageProps {
-  removeItem: (id: string) => StockActionTypes;
-  addItem: (item: NewItem) => StockActionTypes;
-  editItem: (item: StockItem) => StockActionTypes;
-  fetchStock: () => Promise<ThunkAction<Promise<void>, {}, {}, AnyAction>>;
-  stock: StockState;
-}
+const stockSelector = (state: AppState) => state.stock.stock;
+const filterSelector = (state: AppState) => state.stock.filter;
+const typesSelector = (state: AppState) => state.stock.types;
+const filteredStockSelector = createSelector(
+  stockSelector,
+  filterSelector,
+  (stock, filter) =>
+    filter ? stock.filter((item) => item.name.indexOf(filter) >= 0) : stock
+);
 
-const StockManagerPage: React.FC<StockManagerPageProps> = ({
-  addItem,
-  removeItem,
-  editItem,
-  fetchStock,
-  stock,
-}) => {
-  const actions = { addItem, removeItem, editItem };
-  const [filter, setFilter] = useState("");
+export interface StockManagerPageProps {}
+
+const StockManagerPage: React.FC<StockManagerPageProps> = () => {
+  const dispatch = useDispatch();
+  const filteredStock = useSelector(filteredStockSelector, shallowEqual);
+  const filter = useSelector(filterSelector, shallowEqual);
+  const types = useSelector(typesSelector, shallowEqual);
+
+  const remove = (id: string): StockActionTypes => dispatch(removeItem(id));
+  const add = (newItem: NewItem): StockActionTypes =>
+    dispatch(addItem(newItem));
+  const edit = (item: StockItem): StockActionTypes => dispatch(editItem(item));
+  const setfilter = (filter: string): StockActionTypes =>
+    dispatch(setFilter(filter));
+  const fetch = async (): Promise<
+    ThunkAction<Promise<void>, {}, {}, AnyAction>
+  > => await dispatch(fetchStock());
+  const actions = { add, remove, edit };
 
   return (
     <div className="stock-page">
       <SearchBox
         text={filter}
-        setText={setFilter}
-        options={stock.stock.map((item) => item.name)}
+        setText={setfilter}
+        options={filteredStock.map((item) => item.name)}
       />
-      <StockTable stock={stock} actions={actions} />
+      <StockTable types={types} stock={filteredStock} actions={actions} />
       <AddItemForm addItem={addItem}></AddItemForm>
     </div>
   );
 };
 
-const bindStateToProps = (reduxState: AppState) => ({
-  stock: reduxState.stock,
-});
-
-const bindDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
-  removeItem: (id: string) => dispatch(removeItem(id)),
-  addItem: (newItem: NewItem) => dispatch(addItem(newItem)),
-  editItem: (item: StockItem) => dispatch(editItem(item)),
-  fetchStock: async () => await dispatch(fetchStock()),
-});
-
-export default connect(bindStateToProps, bindDispatchToProps)(StockManagerPage);
+export default StockManagerPage;

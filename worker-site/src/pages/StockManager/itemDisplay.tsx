@@ -2,8 +2,6 @@ import * as React from "react";
 import { StockItem } from "../../store/stock/types";
 import { editItem } from "../../store/stock/actions";
 import { useState } from "react";
-import { connect } from "react-redux";
-import { AppState } from "../../store";
 
 export interface ItemDisplayProps {
   item: StockItem;
@@ -74,10 +72,4 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, editItem, types }) => {
   );
 };
 
-const mapStoreToProps = (reuduxStore: AppState) => {
-  return {
-    types: reuduxStore.stock.types,
-  };
-};
-
-export default connect(mapStoreToProps, {})(ItemDisplay);
+export default ItemDisplay;

@@ -6,12 +6,14 @@ import {
   REMOVE_ITEM,
   EDIT_ITEM,
   StockItem,
+  SET_FILTER,
 } from "./types";
 import { v4 } from "uuid";
 
 const initialState: StockState = {
   stock: [],
   types: ["כוסית", "פלאג", "זריעות", "כללי"],
+  filter: "",
 };
 
 export function stockReducer(
@@ -61,6 +63,12 @@ export function stockReducer(
       return {
         ...state,
         stock: action.newStock,
+      };
+    }
+    case SET_FILTER: {
+      return {
+        ...state,
+        filter: action.filter,
       };
     }
     default:

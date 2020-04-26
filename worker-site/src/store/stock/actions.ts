@@ -6,10 +6,18 @@ import {
   EDIT_ITEM,
   REMOVE_ITEM,
   NewItem,
+  SET_FILTER,
 } from "./types";
 import { ThunkAction } from "redux-thunk";
 import { AnyAction } from "redux";
 import Axios from "axios";
+
+export function setFilter(filter: string): StockActionTypes {
+  return {
+    type: SET_FILTER,
+    filter,
+  };
+}
 
 export function addItem(newItem: NewItem): StockActionTypes {
   return {
