@@ -15,6 +15,7 @@ import { ThunkAction } from "redux-thunk";
 import SearchBox from "../../components/SerchBox";
 import { AnyAction } from "redux";
 import { createSelector } from "reselect";
+import { useStockActions } from "../../hooks/useStockActions";
 
 const stockSelector = (state: AppState) => state.stock.stock;
 const filterSelector = (state: AppState) => state.stock.filter;
@@ -29,20 +30,11 @@ const filteredStockSelector = createSelector(
 export interface StockManagerPageProps {}
 
 const StockManagerPage: React.FC<StockManagerPageProps> = () => {
-  const dispatch = useDispatch();
   const filteredStock = useSelector(filteredStockSelector, shallowEqual);
   const filter = useSelector(filterSelector, shallowEqual);
   const types = useSelector(typesSelector, shallowEqual);
 
-  const remove = (id: string): StockActionTypes => dispatch(removeItem(id));
-  const add = (newItem: NewItem): StockActionTypes =>
-    dispatch(addItem(newItem));
-  const edit = (item: StockItem): StockActionTypes => dispatch(editItem(item));
-  const setfilter = (filter: string): StockActionTypes =>
-    dispatch(setFilter(filter));
-  const fetch = async (): Promise<
-    ThunkAction<Promise<void>, {}, {}, AnyAction>
-  > => await dispatch(fetchStock());
+  const { add, remove, edit, setfilter, fetch } = useStockActions();
   const actions = { add, remove, edit };
 
   return (
