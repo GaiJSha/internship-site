@@ -11,6 +11,7 @@ import {
 import { ThunkAction } from "redux-thunk";
 import { AnyAction } from "redux";
 import Axios from "axios";
+import { apiUrl } from "../../config";
 
 export function setFilter(filter: string): StockActionTypes {
   return {
@@ -48,7 +49,7 @@ export function removeItem(id: string): StockActionTypes {
 
 export function fetchStock(): ThunkAction<Promise<void>, {}, {}, AnyAction> {
   return async (dispatch): Promise<void> =>
-    Axios.get("https://localhost:5001/api/stock/", {
+    Axios.get(`${apiUrl}/api/stock/`, {
       headers: {
         "Content-Type": "application/json",
       },
