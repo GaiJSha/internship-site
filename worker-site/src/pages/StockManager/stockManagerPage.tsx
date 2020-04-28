@@ -6,6 +6,7 @@ import AddItemForm from "./addItemForm";
 import SearchBox from "../../components/SerchBox";
 import { createSelector } from "reselect";
 import { useStockActions } from "../../hooks/useStockActions";
+import ConfirmButton from "./ConfirmButton";
 
 const stockSelector = (state: AppState) => state.stock.stock;
 const filterSelector = (state: AppState) => state.stock.filter;
@@ -16,6 +17,7 @@ const filteredStockSelector = createSelector(
   (stock, filter) =>
     filter ? stock.filter((item) => item.name.indexOf(filter) >= 0) : stock
 );
+const stockChangeSelector = (state: AppState) => state.stock.changed;
 
 export interface StockManagerPageProps {}
 
@@ -23,8 +25,9 @@ const StockManagerPage: React.FC<StockManagerPageProps> = () => {
   const filteredStock = useSelector(filteredStockSelector, shallowEqual);
   const filter = useSelector(filterSelector, shallowEqual);
   const types = useSelector(typesSelector, shallowEqual);
+  const isChanged = useSelector(stockChangeSelector, shallowEqual);
 
-  const { add, remove, edit, setfilter, fetch } = useStockActions();
+  const { add, remove, edit, setfilter, update } = useStockActions();
   const actions = { add, remove, edit };
 
   return (
@@ -34,6 +37,7 @@ const StockManagerPage: React.FC<StockManagerPageProps> = () => {
         setText={setfilter}
         options={filteredStock.map((item) => item.name)}
       />
+      <ConfirmButton onConfirm={update} {...{ isChanged }} />
       <StockTable types={types} stock={filteredStock} actions={actions} />
       <AddItemForm addItem={add}></AddItemForm>
     </div>
