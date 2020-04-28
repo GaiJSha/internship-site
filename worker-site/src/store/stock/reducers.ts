@@ -14,6 +14,8 @@ const initialState: StockState = {
   stock: [],
   types: ["כוסית", "פלאג", "זריעות", "כללי"],
   filter: "",
+  fetched: false,
+  changed: false,
 };
 
 export function stockReducer(
@@ -34,6 +36,7 @@ export function stockReducer(
       return {
         ...state,
         ...{ stock: newStock, types: newTypes },
+        changed: true,
       };
     }
     case EDIT_ITEM: {
@@ -49,6 +52,7 @@ export function stockReducer(
       });
       return {
         ...state,
+        changed: true,
         ...{ stock: newStock, types: newTypes },
       };
     }
@@ -57,12 +61,15 @@ export function stockReducer(
       return {
         ...state,
         ...{ stock: newStock },
+        changed: true,
       };
     }
     case GET_STOCK: {
       return {
         ...state,
         stock: action.newStock,
+        changed: false,
+        fetched: true,
       };
     }
     case SET_FILTER: {

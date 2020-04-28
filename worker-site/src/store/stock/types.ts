@@ -16,6 +16,8 @@ export interface StockItem {
 }
 
 export interface StockState {
+  fetched: boolean;
+  changed: boolean;
   stock: StockItem[];
   types: string[];
   filter: string;

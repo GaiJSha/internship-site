@@ -12,6 +12,7 @@ import { ThunkAction } from "redux-thunk";
 import { AnyAction } from "redux";
 import Axios from "axios";
 import { apiUrl } from "../../config";
+import { AppState } from "..";
 
 export function setFilter(filter: string): StockActionTypes {
   return {
@@ -58,4 +59,21 @@ export function fetchStock(): ThunkAction<Promise<void>, {}, {}, AnyAction> {
     });
 }
 
-//export function updateStock(): ThunkAction<Promise<void>, {}, {}, AnyAction>;
+export function updateStock(): ThunkAction<
+  Promise<void>,
+  AppState,
+  {},
+  AnyAction
+> {
+  return async (dispatch, getState): Promise<void> =>
+    Axios.put(`${apiUrl}/api/stock/`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: getState().stock.stock.splice(0, 2),
+    }).then((res) => {
+      if (res.status === 200) {
+        dispatch(setStock(getState().stock.stock));
+      }
+    });
+}
