@@ -161,4 +161,29 @@ nav .clicked::after {
   border: 1px solid #cfcece;
 }
 
+.modal input {
+  border: none;
+  background-color: #0000;
+  border-bottom: #0005 solid thin;
+  width: 8.5vw;
+  min-height: 4.5vh;
+  margin: 10px;
+}
+
+.modal input:focus {
+  outline: none;
+}
+
+.modal button[type='submit'] {
+  margin: 10px;
+  background-color: rgb(46, 95, 209);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  border-radius: 3px;
+}
 /* popup - END */

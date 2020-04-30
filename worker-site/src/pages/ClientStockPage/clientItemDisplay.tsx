@@ -3,7 +3,7 @@ import { StockItem } from "../../store/stock/types";
 
 export interface IClientItemProps {
   item: StockItem;
-  handleClick: (event: React.MouseEvent<HTMLTableRowElement>) => void;
+  handleClick: (item: StockItem) => void;
 }
 
 const ClientItemDisplay: React.FC<IClientItemProps> = ({ item, handleClick }) => {
@@ -23,7 +23,7 @@ const ClientItemDisplay: React.FC<IClientItemProps> = ({ item, handleClick }) =>
     return amount > 0;
   };
   return checkIfAvailable(item) ? (
-    <tr onClick={handleClick}>
+    <tr onClick={() => handleClick(item)}>
       <td className="prod-data">{item.name}</td>
       <td className="prod-data">
         {checkAvailability(item.types[0].amount)

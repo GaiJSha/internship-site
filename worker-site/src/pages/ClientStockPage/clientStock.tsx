@@ -4,20 +4,23 @@ import SearchBox from "../../components/SerchBox";
 import { useFilteredStock } from "../../hooks/useFilteredStock";
 
 import BuyPopUp from "../../components/PopupForm";
-
+import { StockItem } from "../../store/stock/types";
 
 export interface IClientStockProps {}
-
-
 
 const ClientStockPage: React.FC<IClientStockProps> = () => {
   const [filteredStock, onSearchChange] = useFilteredStock();
   const [isOpen, changeOpen] = React.useState(false);
+  const [item, setItem] = React.useState<StockItem>({
+    name: "",
+    id: "",
+    types: [],
+  });
 
-
-  const handleClick = (event: React.MouseEvent<HTMLTableRowElement>): void => {
+  const handleClick = (item: StockItem): void => {
     changeOpen(true);
-    console.log(isOpen);
+    console.log(item);
+    setItem(item);
   };
 
   return (
@@ -40,11 +43,17 @@ const ClientStockPage: React.FC<IClientStockProps> = () => {
         </thead>
         <tbody>
           {filteredStock.map((item) => {
-            return <ItemDisplay item={item} key={item.id} handleClick={handleClick} />;
+            return (
+              <ItemDisplay
+                item={item}
+                key={item.id}
+                handleClick={handleClick}
+              />
+            );
           })}
         </tbody>
       </table>
-      <BuyPopUp open={isOpen} changeOpen={changeOpen}/>
+      <BuyPopUp open={isOpen} changeOpen={changeOpen} item={item}/>
     </div>
   );
 };
