@@ -66,13 +66,22 @@ export function updateStock(): ThunkAction<
   AnyAction
 > {
   return async (dispatch, getState): Promise<void> =>
-    Axios.put(`${apiUrl}/api/stock/`, {
+    /*Axios.put(`${apiUrl}/api/stock/`, {
       headers: {
         "Content-Type": "application/json",
       },
-      body: getState().stock.stock.splice(0, 2),
-    }).then((res) => {
-      if (res.status === 200) {
+      body: getState().stock.stock.slice(0, 10),
+    })*/ fetch(
+      `${apiUrl}/api/stock/`,
+      {
+        body: JSON.stringify(getState().stock.stock.slice(0, 10)),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "put",
+      }
+    ).then((res) => {
+      if (res.ok) {
         dispatch(setStock(getState().stock.stock));
       }
     });
