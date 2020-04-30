@@ -30,7 +30,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ options, setText }) => {
             ))}
           </ComboboxList>
         ) : (
-          <span style={{ display: "block", margin: 8 }}>No results found</span>
+          <span style={{ display: "block", margin: 8 }}>לא נמצאו תוצאות</span>
         )}
       </ComboboxPopover>
     </Combobox>
