@@ -3,23 +3,12 @@ import { AppState } from "../../store";
 import { useSelector } from "react-redux";
 import ItemDisplay from "./clientItemDisplay";
 import SearchBox from "../../components/SerchBox";
+import { useFilteredStock } from "../../hooks/useFilteredStock";
 
 export interface IClientStockProps {}
 
 const ClientStockPage: React.FC<IClientStockProps> = () => {
-  const stock = useSelector((state: AppState) => state.stock.stock);
-  const [searchField, setSearchField] = React.useState("");
-
-  const onSearchChange = (value: string) => {
-    setSearchField(value);
-  };
-
-  const filteredStock = stock.filter((item): boolean => {
-    if (typeof searchField == "string") {
-      return item.name.includes(searchField);
-    }
-    return false;
-  });
+  const [filteredStock, onSearchChange] = useFilteredStock();
 
   return (
     <div className="stock-page">
