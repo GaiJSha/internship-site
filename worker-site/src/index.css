@@ -116,3 +116,31 @@ nav .clicked::after {
 .stock-row span {
   grid-row: 1;
 }
+
+/* client stock page styling */
+
+#products {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.prod-data {
+  text-align: center;
+  padding: 5px;
+}
+
+.prod-title {
+  font-size: 1.5rem;
+}
+
+#products tr:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.products-search {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* client stock page styling - END */

@@ -1,6 +1,4 @@
 import * as React from "react";
-import { AppState } from "../../store";
-import { useSelector } from "react-redux";
 import ItemDisplay from "./clientItemDisplay";
 import SearchBox from "../../components/SerchBox";
 import { useFilteredStock } from "../../hooks/useFilteredStock";
@@ -12,14 +10,28 @@ const ClientStockPage: React.FC<IClientStockProps> = () => {
 
   return (
     <div className="stock-page">
-      <h1>עמוד הזמנה ללקוח</h1>
-      <SearchBox
-        options={filteredStock.map((item) => item.name)}
-        setText={onSearchChange}
-      />
-      {filteredStock.map((item) => {
-        return <ItemDisplay item={item} key={item.id} />;
-      })}
+      <h2 style={{textAlign: "center"}}>חפש</h2>
+      <div className="products-search">
+        <SearchBox
+          options={filteredStock.map((item) => item.name)}
+          setText={onSearchChange}
+        />
+      </div>
+
+      <table id="products">
+        <thead>
+          <tr>
+            <th className="prod-title">שתיל</th>
+            <th className="prod-title">פלאג</th>
+            <th className="prod-title">כוסית</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredStock.map((item) => {
+            return <ItemDisplay item={item} key={item.id} />;
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
