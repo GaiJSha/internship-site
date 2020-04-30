@@ -3,9 +3,10 @@ import { StockItem } from "../../store/stock/types";
 
 export interface IClientItemProps {
   item: StockItem;
+  handleClick: (event: React.MouseEvent<HTMLTableRowElement>) => void;
 }
 
-const ClientItemDisplay: React.FC<IClientItemProps> = ({ item }) => {
+const ClientItemDisplay: React.FC<IClientItemProps> = ({ item, handleClick }) => {
   const noMore = "אזל המלאי";
 
   const checkIfAvailable = (item: StockItem): boolean => {
@@ -16,9 +17,7 @@ const ClientItemDisplay: React.FC<IClientItemProps> = ({ item }) => {
     }
   };
 
-  const handleClick = (): void => {
-
-  }
+  
 
   const checkAvailability = (amount: number): boolean => {
     return amount > 0;
