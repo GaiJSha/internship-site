@@ -33,7 +33,7 @@ const StockManagerPage: React.FC<StockManagerPageProps> = () => {
   return (
     <div className="stock-page">
       <SearchBox
-        text={filter}
+        // text={filter}
         setText={setfilter}
         options={filteredStock.map((item) => item.name)}
       />

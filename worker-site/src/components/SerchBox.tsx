@@ -10,13 +10,17 @@ import "@reach/combobox/styles.css";
 
 export interface SearchBoxProps {
   options: string[];
-  text: string;
   setText: (input: string) => void;
 }
 
-const SearchBox: React.FC<SearchBoxProps> = ({ options, text, setText }) => {
+const SearchBox: React.FC<SearchBoxProps> = ({ options, setText }) => {
+  const onSelectFunc = (e: any) => {
+    console.log(e);
+    setText(e);
+  };
+
   return (
-    <Combobox onSelect={(e) => setText(e)}>
+    <Combobox onSelect={onSelectFunc}>
       <ComboboxInput onChange={(e: any) => setText(e.target.value)} />
       <ComboboxPopover className="shadow-popup">
         {options.length > 0 ? (
