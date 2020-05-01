@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { AppState } from "../store";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { StockItem } from "../store/stock/types";
 
 export const useFilteredStock = (): [
@@ -9,13 +9,18 @@ export const useFilteredStock = (): [
   string
 ] => {
   const stock = useSelector((state: AppState) => state.stock.stock);
-  const [searchField, setSearchField] = useState("");
+  const [filter, setFilter] = useState("");
 
-  const filteredStock = stock.filter((item): boolean => {
-    if (typeof searchField == "string") {
-      return item.name.includes(searchField);
-    }
-    return false;
-  });
-  return [filteredStock, setSearchField, searchField];
+  const filteredStock = useMemo(
+    () =>
+      stock.filter((item): boolean => {
+        if (typeof filter == "string") {
+          return item.name.includes(filter);
+        }
+        return false;
+      }),
+    [stock, filter]
+  );
+
+  return [filteredStock, setFilter, filter];
 };

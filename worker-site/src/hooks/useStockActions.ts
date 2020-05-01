@@ -4,34 +4,43 @@ import {
   removeItem,
   editItem,
   fetchStock,
-  setFilter,
   updateStock,
 } from "../store/stock/actions";
 import { StockActionTypes, NewItem, StockItem } from "../store/stock/types";
 import { ThunkAction } from "redux-thunk";
 import { AnyAction } from "redux";
 import { AppState } from "../store";
+import { useCallback } from "react";
 
 export const useStockActions = () => {
   const dispatch = useDispatch();
 
-  const remove = (id: string): StockActionTypes => dispatch(removeItem(id));
+  const remove = useCallback(
+    (id: string): StockActionTypes => dispatch(removeItem(id)),
+    [dispatch]
+  );
 
-  const add = (newItem: NewItem): StockActionTypes =>
-    dispatch(addItem(newItem));
+  const add = useCallback(
+    (newItem: NewItem): StockActionTypes => dispatch(addItem(newItem)),
+    [dispatch]
+  );
 
-  const edit = (item: StockItem): StockActionTypes => dispatch(editItem(item));
+  const edit = useCallback(
+    (item: StockItem): StockActionTypes => dispatch(editItem(item)),
+    [dispatch]
+  );
 
-  const setfilter = (filter: string): StockActionTypes =>
-    dispatch(setFilter(filter));
+  const fetch = useCallback(
+    async (): Promise<ThunkAction<Promise<void>, {}, {}, AnyAction>> =>
+      await dispatch(fetchStock()),
+    [dispatch]
+  );
 
-  const fetch = async (): Promise<
-    ThunkAction<Promise<void>, {}, {}, AnyAction>
-  > => await dispatch(fetchStock());
+  const update = useCallback(
+    async (): Promise<ThunkAction<Promise<void>, AppState, {}, AnyAction>> =>
+      await dispatch(updateStock()),
+    [dispatch]
+  );
 
-  const update = async (): Promise<
-    ThunkAction<Promise<void>, AppState, {}, AnyAction>
-  > => await dispatch(updateStock());
-
-  return { add, remove, edit, setfilter, fetch, update };
+  return { add, remove, edit, fetch, update };
 };
