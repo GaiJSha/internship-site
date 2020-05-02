@@ -1,21 +1,20 @@
 import * as React from "react";
 import { StockItem } from "../../store/stock/types";
-import { removeItem, addItem, editItem } from "../../store/stock/actions";
 import ItemDisplay from "./itemDisplay";
-
-export interface StockActions {
-  remove: typeof removeItem;
-  add: typeof addItem;
-  edit: typeof editItem;
-}
+import { useStockActions } from "../../hooks/useStockActions";
+import { AppState } from "../../store";
+import { useSelector, shallowEqual } from "react-redux";
 
 export interface StockTableProps {
   stock: StockItem[];
-  types: string[];
-  actions: StockActions;
 }
 
-const StockTable: React.SFC<StockTableProps> = ({ stock, actions, types }) => {
+const typesSelector = (state: AppState) => state.stock.types;
+
+const StockTable: React.FC<StockTableProps> = React.memo(({ stock }) => {
+  const actions = useStockActions();
+  const types = useSelector(typesSelector, shallowEqual);
+
   return (
     <div className="stock-table">
       <div className="table-header">
@@ -25,7 +24,7 @@ const StockTable: React.SFC<StockTableProps> = ({ stock, actions, types }) => {
         ))}
         <h5 className="add-type">הוסף סוג</h5>
       </div>
-      {stock.slice(0, 30).map((item) => (
+      {stock.map((item) => (
         <ItemDisplay
           editItem={actions.edit}
           item={item}
@@ -35,6 +34,6 @@ const StockTable: React.SFC<StockTableProps> = ({ stock, actions, types }) => {
       ))}
     </div>
   );
-};
+});
 
 export default StockTable;
