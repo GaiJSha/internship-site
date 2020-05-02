@@ -1,6 +1,6 @@
 import * as React from "react";
 import Popup from "reactjs-popup";
-import { StockItem } from "../store/stock/types";
+import { StockItem } from "../../store/stock/types";
 
 export interface PopupFormProps {
   open: boolean;

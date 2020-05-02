@@ -3,7 +3,7 @@ import ItemDisplay from "./clientItemDisplay";
 import SearchBox from "../../components/SerchBox";
 import { useFilteredStock } from "../../hooks/useFilteredStock";
 
-import BuyPopUp from "../../components/PopupForm";
+import BuyPopUp from "./PopupForm";
 import { StockItem } from "../../store/stock/types";
 
 export interface IClientStockProps {}
@@ -53,7 +53,7 @@ const ClientStockPage: React.FC<IClientStockProps> = () => {
           })}
         </tbody>
       </table>
-      <BuyPopUp open={isOpen} changeOpen={changeOpen} item={item}/>
+      <BuyPopUp open={isOpen} changeOpen={changeOpen} item={item} />
     </div>
   );
 };
