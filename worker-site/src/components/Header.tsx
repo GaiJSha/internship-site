@@ -8,7 +8,8 @@ const menuOptions: menuOption[] = [
   { name: "בית", route: "/home" },
   { name: "הזמנות", route: "/orders" },
   { name: "מלאי", route: "/stock" },
-  { name: "הזמן", route: "/order" }
+  { name: "הזמן", route: "/order" },
+  { name: "$", route: "/checkout" },
 ];
 
 const Header: React.FC<HeaderProps> = () => {
