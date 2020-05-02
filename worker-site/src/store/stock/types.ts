@@ -20,14 +20,12 @@ export interface StockState {
   changed: boolean;
   stock: StockItem[];
   types: string[];
-  filter: string;
 }
 
 export const GET_STOCK = "GET_STOCK";
 export const ADD_ITEM = "ADD_ITEM";
 export const EDIT_ITEM = "EDIT_ITEM";
 export const REMOVE_ITEM = "REMOVE_ITEM";
-export const SET_FILTER = "SET_FILTER";
 
 interface GetStockAction {
   type: typeof GET_STOCK;
@@ -49,14 +47,8 @@ interface RemoveItemAction {
   id: string;
 }
 
-interface SetFilterAction {
-  type: typeof SET_FILTER;
-  filter: string;
-}
-
 export type StockActionTypes =
   | GetStockAction
   | AddItemAction
   | EditItemAction
-  | RemoveItemAction
-  | SetFilterAction;
+  | RemoveItemAction;
