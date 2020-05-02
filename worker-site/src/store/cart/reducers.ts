@@ -17,7 +17,7 @@ const initialState: CartState = {
   phone: "",
 };
 
-export function systemReducer(
+export function cartReducer(
   state = initialState,
   action: CartActionTypes
 ): CartState {
